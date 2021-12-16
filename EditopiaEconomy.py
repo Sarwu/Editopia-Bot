@@ -19,6 +19,8 @@ guild_ids=[704894281466380358]
 async def on_ready():
     print(f"Editopia Economy is online!")
 
+
+
 #setting up a blacklist
 #BlackList = [1234567890]
 #def check_List(ctx):
@@ -55,6 +57,8 @@ async def balance(ctx, member: discord.Member=None):
     await ctx.respond(embed = em, ephemeral = True)
     return
 
+
+
 @bot.slash_command(name="highlow", description="Play the High-Low game for currency!", guild_ids=guild_ids)
 async def highlow(ctx):
     if ctx.channel.id != 919624913529212988:
@@ -75,8 +79,13 @@ async def highlow(ctx):
     button = Button(label="Higher", style=discord.ButtonStyle.green, emoji="🔼")
     buttontwo = Button(label="Lower", style=discord.ButtonStyle.red, emoji="🔽")
     
-    
-    
+    #async def interaction_check(self, interaction) -> bool:
+    #    if interaction.user !=self.ctx.author:
+    #        await interaction.response.send_message("Hey! You can't use that!", ephemeral = True)
+    #        return False
+    #    else:
+    #        return True
+
     await ctx.defer()
     async def button_callback(interaction):
         if hiddenNumber < shownNumber:
@@ -107,6 +116,7 @@ async def highlow(ctx):
             await update_bank(ctx.author, winnings, "wallet")
             await interaction.response.edit_message(embed=new_embed,view=None)
             return
+
 
     button.callback = button_callback
     buttontwo.callback = buttontwo_callback
@@ -277,7 +287,7 @@ async def beg(ctx):
 
     users[str(user.id)]["wallet"] += earnings
 
-    with open("mainbank.json","w") as f:
+    with open("EditopiaBank.json","w") as f:
         json.dump(users,f)
 
 @bot.slash_command()
